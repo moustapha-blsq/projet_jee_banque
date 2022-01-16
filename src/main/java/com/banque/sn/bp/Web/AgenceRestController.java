@@ -9,19 +9,20 @@ import com.banque.sn.bp.Repository.EmployerRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
-public class BanqueController {
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/banque/agence")
+public class AgenceRestController {
     private AgenceRepository agenceRepository;
     private ClientRepository clientRepository;
     private CompteRepository compteRepository;
-    private EmployerRepository employerRepository;
 
-    public BanqueController(AgenceRepository agenceRepository, ClientRepository clientRepository, CompteRepository compteRepository, EmployerRepository employerRepository) {
+
+    public AgenceRestController(AgenceRepository agenceRepository, ClientRepository clientRepository, CompteRepository compteRepository, EmployerRepository employerRepository) {
         this.agenceRepository = agenceRepository;
         this.clientRepository = clientRepository;
         this.compteRepository = compteRepository;
-        this.employerRepository = employerRepository;
+        //this.employerRepository = employerRepository;
     }
 
     //Methode gestion des agences
@@ -30,14 +31,17 @@ public class BanqueController {
     public List<Agence> getAllAgence(){
         return agenceRepository.findAll();
     }
+
     @GetMapping(path = "/findAgence/{id}")
     public Agence getAgence(@PathVariable(name="id") int id){
         return agenceRepository.findById(id).get();
     }
+
     @PostMapping(path = "/create_agence")
     public Agence saveAgence(@RequestBody Agence agence){
         return agenceRepository.save(agence);
     }
+
     @PostMapping(path = "/update_agence/{id}")
     public Agence Update_agence(@PathVariable int id, @RequestBody Agence agence){
         agence.setId(id);

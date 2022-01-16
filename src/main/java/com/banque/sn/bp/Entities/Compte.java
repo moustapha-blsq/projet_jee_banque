@@ -15,6 +15,7 @@ public class Compte {
     private double solde;
     private String numeroCompte;
     private String rib;
+    private String siwft;
     private Date datecreation;
     @Enumerated(EnumType.STRING)
     private TypeCompte type;
